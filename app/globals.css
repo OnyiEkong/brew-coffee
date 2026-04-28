@@ -33,39 +33,134 @@ body {
   font-family: var(--font-body), system-ui, sans-serif;
 }
 
-/* ── n8n Chat widget — Brew & Co theme ─────────────────────────────────── */
+/* ── n8n Chat widget — Brew & Co theme ───────────────────────────────────
+   IMPORTANT: variable names below match @n8n/chat@1.18.2's dist/style.css
+   exactly (note the DOUBLE-dash separators in palette tokens like
+   `--chat--color--primary` and `--chat--color--secondary`). Single-dash
+   overrides like `--chat--color-primary` silently do nothing. */
 :root {
-  --chat--color-primary:             #c07840;
-  --chat--color-primary-shade-50:    #a0622e;
-  --chat--color-primary-shade-100:   #7a4a2e;
-  --chat--color-secondary:           #2c1a10;
-  --chat--color-secondary-shade-50:  #1a0f0a;
-  --chat--color-white:               #fdf8f3;
-  --chat--color-light:               #f7ede0;
-  --chat--color-light-shade-50:      #f0e4d8;
-  --chat--color-light-shade-100:     #eedcc8;
-  --chat--color-medium:              #9c8c80;
-  --chat--color-dark:                #2c1a10;
-  --chat--color-disabled:            #d6cec8;
-  --chat--color-typing:              #6b5e52;
+  /* ── Palette ─────────────────────────────────────────────────────────── */
+  --chat--color--primary:             #c07840;             /* caramel-500  */
+  --chat--color--primary-shade-50:    #a0622e;             /* caramel-600  */
+  --chat--color--primary--shade-100:  #7a4a2e;             /* espresso-600 */
+  --chat--color--secondary:           #c07840;             /* caramel-500  */
+  --chat--color-secondary-shade-50:   #a0622e;             /* caramel-600  */
+  --chat--color-white:                #fdf8f3;             /* cream-50     */
+  --chat--color-light:                #fdf8f3;             /* cream-50     */
+  --chat--color-light-shade-50:       #f7ede0;             /* cream-100    */
+  --chat--color-light-shade-100:      #eedcc8;             /* cream-200    */
+  --chat--color-medium:               #9c8c80;             /* warm-gray-400*/
+  --chat--color-dark:                 #2c1a10;             /* espresso-900 */
+  --chat--color-disabled:             #d6cec8;             /* warm-gray-200*/
+  --chat--color-typing:               #6b5e52;             /* warm-gray-600*/
 
-  --chat--header--background:        #2c1a10;
-  --chat--header--color:             #fdf8f3;
+  /* ── Typography ─────────────────────────────────────────────────────── */
+  --chat--font-family:                var(--font-body), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  --chat--message--bot--background:  #f7ede0;
-  --chat--message--bot--color:       #2c1a10;
-  --chat--message--user--background: #c07840;
-  --chat--message--user--color:      #fdf8f3;
+  /* ── Window geometry ────────────────────────────────────────────────── */
+  --chat--window--width:              380px;
+  --chat--window--height:             620px;
 
-  --chat--toggle--background:        #c07840;
-  --chat--toggle--hover--background: #a0622e;
-  --chat--toggle--active--background:#7a4a2e;
-  --chat--toggle--color:             #fdf8f3;
-  --chat--toggle--size:              56px;
+  /* ── Header ─────────────────────────────────────────────────────────── */
+  --chat--header--background:         #2c1a10;             /* espresso-900 */
+  --chat--header--color:              #fdf8f3;             /* cream-50     */
+  --chat--heading--font-size:         1.5em;
+  --chat--subtitle--font-size:        0.875rem;
 
-  --chat--window--width:             380px;
-  --chat--window--height:            580px;
+  /* ── Body / messages ────────────────────────────────────────────────── */
+  --chat--body--background:           #fdf8f3;             /* cream-50     */
 
-  --chat--border-radius:             12px;
-  --chat--input--border-active:      #c07840;
+  --chat--message--bot--background:   #f7ede0;             /* cream-100    */
+  --chat--message--bot--color:        #2c1a10;             /* espresso-900 */
+  --chat--message--user--background:  #c07840;             /* caramel-500  */
+  --chat--message--user--color:       #fdf8f3;             /* cream-50     */
+
+  /* ── Toggle (floating button) ───────────────────────────────────────── */
+  --chat--toggle--background:         #c07840;             /* caramel-500  */
+  --chat--toggle--hover--background:  #a0622e;             /* caramel-600  */
+  --chat--toggle--active--background: #7a4a2e;             /* espresso-600 */
+  --chat--toggle--color:              #fdf8f3;             /* cream-50     */
+  --chat--toggle--size:               56px;
+
+  /* ── Border radii ───────────────────────────────────────────────────── */
+  --chat--border-radius:              12px;
+  --chat--window--border-radius:      16px;
+  --chat--message--border-radius:     12px;
+
+  /* ── Input area ──────────────────────────────────────────────────────
+     The package defaults collapse the container to 0px padding/border,
+     which combined with 100% body scroll can hide the input on some
+     viewports. Give it explicit padding, a visible border, and ensure
+     the textarea has enough height. */
+  --chat--input--background:          #fdf8f3;             /* cream-50     */
+  --chat--input--text-color:          #2c1a10;             /* espresso-900 */
+  --chat--input--border:              1px solid #eedcc8;   /* cream-200    */
+  --chat--input--border-active:       1px solid #c07840;   /* caramel-500  */
+  --chat--input--border-radius:       12px;
+  --chat--input--padding:             0.75rem;
+
+  --chat--input--container--background:    #fdf8f3;        /* cream-50     */
+  --chat--input--container--border:        1px solid #eedcc8;
+  --chat--input--container--border-radius: 16px;
+  --chat--input--container--padding:       0.5rem;
+
+  --chat--textarea--height:           48px;
+  --chat--textarea--max-height:       160px;
+
+  --chat--input--send--button--background:        transparent;
+  --chat--input--send--button--color:             #c07840; /* caramel-500  */
+  --chat--input--send--button--background-hover:  #f7ede0; /* cream-100    */
+  --chat--input--send--button--color-hover:       #a0622e; /* caramel-600  */
+
+  /* ── Footer ─────────────────────────────────────────────────────────── */
+  --chat--footer--background:         #fdf8f3;             /* cream-50     */
+  --chat--footer--color:              #6b5e52;             /* warm-gray-600*/
+}
+
+/* ── n8n Chat widget — defensive layout overrides ─────────────────────────
+   The widget package occasionally clips the input on first paint because
+   `.chat-window` is `overflow:hidden` and `.chat-body` can grow taller
+   than the available space. Force a column flex layout and let the input
+   stay at its natural height while the body scrolls. */
+.chat-window-wrapper .chat-window {
+  display: flex;
+  overflow: hidden;
+}
+.chat-window-wrapper .chat-window .chat-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  font-family: var(--chat--font-family);
+}
+.chat-window-wrapper .chat-layout .chat-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+}
+/* The .chat-input lives inside the layout (or footer slot) — pin it to
+   the bottom and never let it shrink to zero. */
+.chat-window-wrapper .chat-layout .chat-input,
+.chat-window-wrapper .chat-layout .chat-footer {
+  flex: 0 0 auto;
+}
+.chat-window-wrapper .chat-input .chat-inputs {
+  background: var(--chat--input--container--background);
+  border: var(--chat--input--container--border);
+  border-radius: var(--chat--input--container--border-radius);
+  padding: var(--chat--input--container--padding);
+}
+.chat-window-wrapper .chat-input .chat-inputs:focus-within {
+  border: var(--chat--input--border-active);
+}
+.chat-window-wrapper .chat-input textarea {
+  background: var(--chat--input--background);
+  color: var(--chat--input--text-color);
+  font-family: inherit;
+}
+/* Ensure the widget root inherits the site font. */
+.n8n-chat,
+.chat-window-wrapper,
+.chat-window-wrapper .chat-window,
+.chat-window-wrapper .chat-layout {
+  font-family: var(--chat--font-family);
 }
