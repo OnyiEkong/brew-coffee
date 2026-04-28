@@ -164,3 +164,51 @@ body {
 .chat-window-wrapper .chat-layout {
   font-family: var(--chat--font-family);
 }
+
+/* ── Widget visual polish — match the Brew & Co aesthetic ──────────────── */
+
+/* Floating toggle button */
+.chat-window-toggle {
+  box-shadow: 0 4px 24px rgba(26, 15, 10, 0.25);
+}
+.chat-window-toggle:hover {
+  transform: scale(1.06);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+/* Chat window card */
+.chat-window-wrapper .chat-window {
+  box-shadow: 0 8px 40px rgba(26, 15, 10, 0.18);
+  border: 1px solid #eedcc8;
+}
+
+/* Header — tighten padding and make subtitle slightly muted */
+.chat-window-wrapper .chat-header {
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.chat-window-wrapper .chat-header .chat-subtitle {
+  opacity: 0.75;
+  font-size: 0.8rem;
+}
+
+/* Message bubbles */
+.chat-window-wrapper .chat-message.chat-message-from-bot .chat-message-text {
+  border-radius: 4px 12px 12px 12px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+.chat-window-wrapper .chat-message.chat-message-from-user .chat-message-text {
+  border-radius: 12px 4px 12px 12px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+/* "Powered by n8n" footer — mute it to not compete with the site */
+.chat-window-wrapper .chat-powered-by {
+  font-size: 0.7rem;
+  opacity: 0.5;
+}
+.chat-window-wrapper .chat-powered-by a {
+  color: var(--color-warm-gray-600) !important;
+}

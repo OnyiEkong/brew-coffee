@@ -4,10 +4,6 @@ import { useEffect } from "react";
 
 export default function ChatWidget() {
   useEffect(() => {
-    // Load via CDN to avoid Turbopack/Vue proxy incompatibility with the
-    // bundled @n8n/chat package. Injecting a native <script type="module">
-    // bypasses the bundler entirely and uses the browser's own ES module
-    // loader, which Vue's reactivity system is compatible with.
     const link = document.createElement("link");
     link.rel = "stylesheet";
     link.href = "https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css";
@@ -15,25 +11,27 @@ export default function ChatWidget() {
 
     const script = document.createElement("script");
     script.type = "module";
+    // Webhook points to the local proxy (/api/chat) to avoid CORS — the
+    // browser stays on the same origin and the server forwards to n8n.
     script.textContent = `
       import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
       createChat({
-        webhookUrl: 'https://onyi46.app.n8n.cloud/webhook/6f104494-76d1-4900-b34e-9f22f740709e/chat',
+        webhookUrl: '/api/chat',
         mode: 'window',
         showWelcomeScreen: false,
         loadPreviousSession: false,
         initialMessages: [
           'Hi there! Welcome to Brew & Co. ☕',
-          'I can help you explore our menu, find out about events, or answer any questions. What can I help you with?',
+          'Ask me about our menu, upcoming events, or anything else. How can I help?',
         ],
         i18n: {
           en: {
             title: 'Brew & Co.',
-            subtitle: 'Your coffee guide — ask us anything.',
+            subtitle: 'Your coffee guide',
             footer: '',
             getStarted: 'Start Chatting',
             inputPlaceholder: 'Ask about our menu, events…',
-            closeButtonTooltip: 'Close chat',
+            closeButtonTooltip: 'Close',
           },
         },
       });
