@@ -1,0 +1,191 @@
+/* ============================================================
+ * BREW COFFEE — Design Tokens
+ * ============================================================
+ * Stack: Next.js 16 · React 19 · Tailwind CSS v4 · TypeScript 5
+ *
+ * HOW TO USE:
+ *   Replace the contents of app/globals.css with this file,
+ *   or copy the :root block and @theme block into globals.css.
+ *
+ *   Every --color-* token in @theme becomes a Tailwind utility:
+ *     bg-espresso-800, text-caramel-500, border-ember-300 …
+ *   Every --font-* becomes: font-display, font-body …
+ *   Every --radius-* becomes: rounded-sm, rounded-xl, rounded-full …
+ *   Every --shadow-* becomes: shadow-warm, shadow-glow …
+ *   Every --duration-* becomes: duration-fast, duration-slow …
+ *   Every --ease-* becomes: ease-smooth, ease-spring …
+ * ============================================================ */
+
+@import "tailwindcss";
+
+/* ----------------------------------------------------------
+ * Raw primitives — swap these for dark mode / theming
+ * ---------------------------------------------------------- */
+:root {
+  /* Semantic surface values (override in dark mode) */
+  --raw-background:     #FAF7F2;
+  --raw-surface:        #FFFFFF;
+  --raw-text-primary:   #3B1A08;
+  --raw-text-secondary: #7B4A1E;
+  --raw-text-muted:     #A06632;
+  --raw-border:         #EDD4B2;
+  --raw-border-subtle:  #F7EAD8;
+}
+
+/* ----------------------------------------------------------
+ * Tailwind v4 Theme Tokens
+ * ---------------------------------------------------------- */
+@theme {
+
+  /* ─────────────────────────────────────
+   * COLORS
+   * ───────────────────────────────────── */
+
+  /* Espresso — Primary brand brown
+   * Use for: headings, primary buttons, dark backgrounds */
+  --color-espresso-950: #120701;
+  --color-espresso-900: #1E0C03;
+  --color-espresso-800: #3B1A08;   /* ★ Primary text & buttons */
+  --color-espresso-700: #5C2D0E;
+  --color-espresso-600: #7B4A1E;
+  --color-espresso-500: #A06632;
+  --color-espresso-400: #C4894F;
+  --color-espresso-300: #D9AB7A;
+  --color-espresso-200: #EDD4B2;   /* ★ Default border */
+  --color-espresso-100: #F7EAD8;
+  --color-espresso-50:  #FBF5EE;
+
+  /* Caramel — Gold accent
+   * Use for: price badges, star ratings, highlight accents */
+  --color-caramel-900: #6B3A05;
+  --color-caramel-800: #8B5010;
+  --color-caramel-700: #A8691A;
+  --color-caramel-600: #C48428;
+  --color-caramel-500: #D4A843;   /* ★ Primary accent */
+  --color-caramel-400: #DEB96A;
+  --color-caramel-300: #E8CC8A;
+  --color-caramel-200: #F1DDAB;
+  --color-caramel-100: #F9F1E2;
+  --color-caramel-50:  #FDFAF3;
+
+  /* Ember — Warm orange
+   * Use for: section tags, dotted rings, call-to-action accent */
+  --color-ember-900: #7A1D00;
+  --color-ember-700: #B03000;
+  --color-ember-500: #D94A0A;     /* ★ Accent orange */
+  --color-ember-400: #E86030;
+  --color-ember-300: #F08A60;
+  --color-ember-200: #F8C4A8;
+  --color-ember-100: #FCEEE6;
+
+  /* Cream — Warm neutral backgrounds */
+  --color-cream-50:  #FAF7F2;     /* ★ Page background */
+  --color-cream-100: #F5EFE6;
+  --color-cream-200: #EDE0CF;
+  --color-cream-300: #E0CCB4;
+
+  /* Burgundy — Deep secondary brand color
+   * Use for: alternative cup styling, deep accent sections */
+  --color-burgundy-900: #3D0E14;
+  --color-burgundy-700: #6B1E26;  /* ★ Burgundy cup */
+  --color-burgundy-500: #8B3040;
+  --color-burgundy-300: #C47080;
+  --color-burgundy-100: #F5E0E4;
+
+  /* Semantic aliases — use these in components */
+  --color-background:     var(--raw-background);
+  --color-surface:        var(--raw-surface);
+  --color-text-primary:   var(--raw-text-primary);
+  --color-text-secondary: var(--raw-text-secondary);
+  --color-text-muted:     var(--raw-text-muted);
+  --color-border:         var(--raw-border);
+  --color-border-subtle:  var(--raw-border-subtle);
+
+  /* ─────────────────────────────────────
+   * TYPOGRAPHY
+   * ───────────────────────────────────── */
+
+  /* font-display → Cormorant Garamond, elegant serif for headings */
+  --font-display: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  /* font-body → DM Sans, clean modern sans for body copy */
+  --font-body: "DM Sans", "Helvetica Neue", Arial, sans-serif;
+  /* font-mono → code blocks, token labels */
+  --font-mono: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.04em;
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0em;
+  --tracking-wide:     0.04em;
+  --tracking-wider:    0.08em;
+  --tracking-widest:   0.18em;
+
+  /* Line Height */
+  --leading-none:    1;
+  --leading-tight:   1.15;
+  --leading-snug:    1.35;
+  --leading-normal:  1.5;
+  --leading-relaxed: 1.7;
+  --leading-loose:   2;
+
+  /* ─────────────────────────────────────
+   * BORDER RADIUS
+   * ───────────────────────────────────── */
+
+  --radius-none: 0;
+  --radius-xs:   0.125rem;   /*  2px — tight micro elements */
+  --radius-sm:   0.25rem;    /*  4px — subtle corners */
+  --radius-md:   0.5rem;     /*  8px — inputs, small cards */
+  --radius-lg:   0.75rem;    /* 12px — cards */
+  --radius-xl:   1rem;       /* 16px — large cards, panels */
+  --radius-2xl:  1.5rem;     /* 24px — product cards */
+  --radius-3xl:  2rem;       /* 32px — modals */
+  --radius-full: 9999px;     /* pill — buttons, badges, tags */
+
+  /* ─────────────────────────────────────
+   * SHADOWS  (warm espresso-tinted)
+   * ───────────────────────────────────── */
+
+  --shadow-xs:     0 1px 2px 0 rgb(59 26 8 / 0.06);
+  --shadow-sm:     0 1px 3px 0 rgb(59 26 8 / 0.10),
+                   0 1px 2px -1px rgb(59 26 8 / 0.06);
+  --shadow-md:     0 4px 12px -2px rgb(59 26 8 / 0.12),
+                   0 2px 6px -2px rgb(59 26 8 / 0.08);
+  --shadow-lg:     0 10px 28px -4px rgb(59 26 8 / 0.16),
+                   0 4px 12px -4px rgb(59 26 8 / 0.10);
+  --shadow-xl:     0 20px 48px -8px rgb(59 26 8 / 0.22),
+                   0 8px 20px -6px rgb(59 26 8 / 0.14);
+  --shadow-2xl:    0 32px 72px -12px rgb(59 26 8 / 0.28);
+  --shadow-inner:  inset 0 2px 6px 0 rgb(59 26 8 / 0.10);
+  --shadow-glow:   0 0 20px 4px rgb(212 168 67 / 0.22);
+
+  /* ─────────────────────────────────────
+   * TRANSITIONS — easing + duration
+   * ───────────────────────────────────── */
+
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);     /* default state changes */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1); /* bouncy interactions */
+  --ease-in:     cubic-bezier(0.4, 0, 1, 1);         /* elements leaving */
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);          /* elements entering */
+
+  --duration-instant: 75ms;   /* tooltips, immediate feedback */
+  --duration-fast:    150ms;  /* hover states, micro-interactions */
+  --duration-base:    250ms;  /* default transitions, button clicks */
+  --duration-slow:    400ms;  /* modals, drawers, page enter */
+  --duration-slower:  600ms;  /* hero reveals, staggered lists */
+  --duration-slowest: 1000ms; /* background effects, parallax */
+
+  /* ─────────────────────────────────────
+   * Z-INDEX SCALE
+   * ───────────────────────────────────── */
+
+  --z-below:    -1;
+  --z-base:      0;
+  --z-raised:   10;
+  --z-dropdown: 100;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+  --z-tooltip:  600;
+}

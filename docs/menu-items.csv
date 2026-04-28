@@ -1,0 +1,47 @@
+category,name,price,description,badge
+Espresso Drinks,Espresso,3.50,A rich double shot of our signature dark roast blend with a golden crema,House Favorite
+Espresso Drinks,Americano,4.00,Two shots of espresso topped with hot water for a smooth and bold cup,
+Espresso Drinks,Cappuccino,4.75,Equal parts espresso, steamed milk, and velvety foam for a classic Italian experience,Popular
+Espresso Drinks,Latte,5.25,Two shots of espresso with silky steamed milk and a thin layer of microfoam,Popular
+Espresso Drinks,Flat White,5.00,Ristretto shots with a double ristretto and velvety microfoam poured over whole milk,House Favorite
+Espresso Drinks,Cortado,4.50,Equal parts espresso and warm milk to reduce the acidity without overwhelming the coffee,
+Espresso Drinks,Macchiato,4.25,A shot of espresso lightly marked with a dollop of fresh foam,
+Espresso Drinks,Mocha,5.75,Two shots of espresso blended with rich dark chocolate sauce and steamed milk,Popular
+Espresso Drinks,Caramel Latte,5.75,Our classic latte sweetened with house-made salted caramel syrup,Popular
+Espresso Drinks,Vanilla Latte,5.50,Smooth espresso and steamed milk with a touch of pure vanilla bean syrup,
+Espresso Drinks,Lavender Latte,5.75,Two shots of espresso with house-made lavender syrup and oat milk foam,House Favorite
+Espresso Drinks,Hazelnut Mocha,6.00,Espresso with dark chocolate and toasted hazelnut syrup topped with whipped cream,
+Espresso Drinks,Brown Sugar Oat Latte,5.75,Espresso shaken with brown sugar cinnamon syrup and poured over oat milk,Popular
+Cold Drinks,Cold Brew,4.75,Steeped for 20 hours in cold water for a smooth low-acid concentrate served over ice,Popular
+Cold Drinks,Nitro Cold Brew,5.50,Cold brew infused with nitrogen for a creamy cascading pour with a velvety finish,House Favorite
+Cold Drinks,Iced Americano,4.50,Double espresso poured over ice and topped with cold water,
+Cold Drinks,Iced Latte,5.50,Espresso chilled over ice and topped with cold milk of your choice,Popular
+Cold Drinks,Iced Mocha,6.00,Espresso with chocolate sauce shaken over ice and topped with cold milk,
+Cold Drinks,Iced Caramel Macchiato,6.25,Vanilla syrup and cold milk layered with espresso and a drizzle of caramel,Popular
+Cold Drinks,Sparkling Lemonade,4.00,Fresh-squeezed lemon juice with cane sugar and sparkling water,
+Cold Drinks,Strawberry Matcha Latte,6.25,Ceremonial grade matcha with oat milk and a house-made strawberry compote,House Favorite
+Cold Drinks,Mango Passion Refresher,5.00,Tropical mango and passion fruit blend with green coffee extract over ice,Popular
+Cold Drinks,Classic Iced Tea,3.50,House-brewed black tea served over ice — sweetened or unsweetened,
+Cold Drinks,Peach Iced Tea,4.25,House black tea infused with ripe peach syrup served over ice,
+Cold Drinks,Horchata Cold Brew,6.00,Cold brew layered over house-made cinnamon rice milk and vanilla,House Favorite
+Pastries,Butter Croissant,3.75,Flaky golden croissant made with European-style butter — baked fresh each morning,Popular
+Pastries,Almond Croissant,4.50,Twice-baked croissant filled with almond cream and topped with toasted sliced almonds,House Favorite
+Pastries,Chocolate Croissant,4.25,Buttery laminated pastry wrapped around dark Belgian chocolate batons,Popular
+Pastries,Blueberry Scone,3.75,Tender buttermilk scone loaded with fresh blueberries and a lemon glaze,
+Pastries,Cinnamon Roll,5.00,Soft pillowy roll swirled with cinnamon brown sugar and topped with cream cheese icing,Popular
+Pastries,Banana Bread,3.50,Moist loaf made with overripe bananas walnuts and a hint of cinnamon,House Favorite
+Pastries,Lemon Poppy Seed Muffin,3.50,Bright zesty muffin with fresh lemon zest and a crunchy poppy seed crumble top,
+Pastries,Morning Glory Muffin,4.00,Hearty muffin packed with carrots apple coconut and warm spices,
+Pastries,Chocolate Chip Cookie,3.25,Thick bakery-style cookie with semi-sweet and dark chocolate chips baked to order,Popular
+Pastries,Cardamom Kouign-Amann,4.75,Caramelized laminated pastry with cardamom sugar — crispy outside and buttery inside,House Favorite
+Pastries,Seasonal Fruit Tart,5.50,Buttery tart shell filled with vanilla pastry cream and topped with fresh seasonal fruit,
+Sandwiches,Avocado Toast,9.50,Smashed avocado on sourdough with everything bagel seasoning and a drizzle of olive oil,Popular
+Sandwiches,Egg & Cheese Sandwich,8.00,Fluffy scrambled egg and aged cheddar on a toasted English muffin,Popular
+Sandwiches,BLT Club,10.50,Crispy bacon lettuce and tomato with herb aioli on toasted sourdough,
+Sandwiches,Turkey Pesto Panini,11.00,Sliced turkey breast with sun-dried tomato pesto arugula and fresh mozzarella pressed hot,House Favorite
+Sandwiches,Caprese Sandwich,10.00,Fresh mozzarella ripe tomato basil and balsamic glaze on a ciabatta roll,
+Sandwiches,Smoked Salmon Bagel,12.00,House cream cheese smoked salmon capers red onion and dill on a toasted everything bagel,House Favorite
+Sandwiches,Grilled Veggie Wrap,10.50,Roasted zucchini bell pepper red onion and hummus in a whole wheat spinach wrap,
+Sandwiches,Chicken Caesar Wrap,11.50,Grilled chicken romaine hearts shaved parmesan and caesar dressing in a toasted flour wrap,Popular
+Sandwiches,Ham & Gruyere Croissant,10.00,Smoked ham and melted gruyere on a toasted butter croissant with whole grain mustard,Popular
+Sandwiches,Mushroom & Brie Panini,11.00,Sautéed wild mushrooms with brie fig jam and baby arugula pressed on sourdough,House Favorite

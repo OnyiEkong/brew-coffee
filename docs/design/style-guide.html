@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brew Coffee · Design System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Token Mirror (matches tokens.css) ─── */
+    :root {
+      --e-950:#120701; --e-900:#1E0C03; --e-800:#3B1A08; --e-700:#5C2D0E;
+      --e-600:#7B4A1E; --e-500:#A06632; --e-400:#C4894F; --e-300:#D9AB7A;
+      --e-200:#EDD4B2; --e-100:#F7EAD8; --e-50:#FBF5EE;
+      --c-900:#6B3A05; --c-700:#A8691A; --c-500:#D4A843;
+      --c-300:#E8CC8A; --c-100:#F9F1E2;
+      --em-700:#B03000; --em-500:#D94A0A; --em-400:#E86030;
+      --em-300:#F08A60; --em-100:#FCEEE6;
+      --cr-50:#FAF7F2; --cr-100:#F5EFE6; --cr-200:#EDE0CF; --cr-300:#E0CCB4;
+      --b-900:#3D0E14; --b-700:#6B1E26; --b-500:#8B3040; --b-300:#C47080;
+
+      --bg:   var(--cr-50);
+      --surf: #FFFFFF;
+      --tx:   var(--e-800);
+      --tx2:  var(--e-600);
+      --tx3:  var(--e-400);
+      --bdr:  var(--e-200);
+
+      --fd: 'Cormorant Garamond', Georgia, serif;
+      --fb: 'DM Sans', sans-serif;
+
+      --sh-sm: 0 1px 3px rgb(59 26 8/0.10);
+      --sh-md: 0 4px 12px rgb(59 26 8/0.12);
+      --sh-lg: 0 10px 28px rgb(59 26 8/0.16);
+      --sh-xl: 0 20px 48px rgb(59 26 8/0.22);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 15px; }
+
+    body {
+      background: var(--bg);
+      color: var(--tx);
+      font-family: var(--fb);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout ─── */
+    .shell { display: grid; grid-template-columns: 224px 1fr; min-height: 100vh; }
+
+    /* ─── Sidebar ─── */
+    .nav {
+      position: fixed; top: 0; left: 0; width: 224px; height: 100vh;
+      background: var(--e-900);
+      padding: 36px 20px 36px;
+      display: flex; flex-direction: column; gap: 2px;
+      overflow-y: auto;
+    }
+    .nav-logo {
+      font-family: var(--fd); font-size: 26px; font-weight: 600;
+      color: var(--c-300); margin-bottom: 6px; letter-spacing: -0.01em;
+    }
+    .nav-sub {
+      font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--e-500); margin-bottom: 24px; font-weight: 600;
+    }
+    .nav-section-label {
+      font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--e-600); margin: 16px 0 4px 12px; font-weight: 600;
+    }
+    .nav-link {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 12px; border-radius: 8px;
+      color: var(--e-300); text-decoration: none; font-size: 13px;
+      transition: all 0.18s; font-weight: 400;
+    }
+    .nav-link:hover { background: rgba(255,255,255,0.07); color: #fff; }
+    .nav-link.active { background: rgba(212,168,67,0.14); color: var(--c-300); font-weight: 500; }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .nav-stack {
+      margin-top: auto; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .nav-stack span {
+      font-size: 11px; color: var(--e-500); padding: 4px 12px;
+    }
+
+    /* ─── Main ─── */
+    .main { margin-left: 224px; padding: 0 72px 120px; max-width: 1060px; }
+
+    /* ─── Shared typography ─── */
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 10px; font-weight: 600; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--em-500); margin-bottom: 10px;
+    }
+    .eyebrow::before {
+      content: ''; display: block; width: 20px; height: 1.5px;
+      background: var(--em-500);
+    }
+    .section-h {
+      font-family: var(--fd); font-size: 52px; font-weight: 600;
+      line-height: 1.05; color: var(--e-800); margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+    .section-desc {
+      font-size: 15px; color: var(--tx2); max-width: 560px;
+      margin-bottom: 48px; line-height: 1.7;
+    }
+    section { padding-top: 88px; }
+
+    /* ─── Cards ─── */
+    .card {
+      background: var(--surf); border-radius: 16px;
+      padding: 32px; box-shadow: var(--sh-sm);
+      border: 1px solid var(--cr-200);
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--bdr);
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+    }
+    .hero-title {
+      font-family: var(--fd); font-size: 80px; font-weight: 600;
+      line-height: 0.92; color: var(--e-800); letter-spacing: -0.03em;
+      margin: 12px 0;
+    }
+    .hero-title em { color: var(--c-500); font-style: normal; }
+    .hero-desc { font-size: 15px; color: var(--tx2); max-width: 380px; line-height: 1.7; }
+    .hero-badge {
+      display: inline-block; padding: 5px 14px;
+      background: var(--e-800); color: var(--c-300);
+      border-radius: 9999px; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; margin-bottom: 10px;
+    }
+    .hero-meta { text-align: right; flex-shrink: 0; }
+    .hero-date { font-size: 12px; color: var(--tx3); margin-top: 4px; display: block; }
+    .hero-palette { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; margin-top: 20px; }
+    .hero-swatch { display: flex; align-items: center; gap: 8px; }
+    .hero-swatch-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .hero-swatch span { font-size: 11px; color: var(--tx3); }
+
+    /* ─── Color System ─── */
+    .color-family { margin-bottom: 36px; }
+    .color-family-label {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tx3); margin-bottom: 10px;
+    }
+    .swatch-strip { display: flex; gap: 3px; border-radius: 14px; overflow: hidden; }
+    .sw {
+      flex: 1; cursor: pointer; transition: transform 0.2s; position: relative;
+      transform-origin: bottom;
+    }
+    .sw:hover { transform: scaleY(1.08); z-index: 1; }
+    .sw-color { height: 68px; }
+    .sw-info { padding: 7px 5px 4px; background: var(--surf); }
+    .sw-name { font-size: 10px; font-weight: 600; color: var(--tx); display: block; }
+    .sw-hex  { font-size: 9px; color: var(--tx3); display: block; }
+    .sw-star { color: var(--c-500); }
+
+    /* Semantic grid */
+    .semantic-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 28px; }
+    .sem-item { display: flex; flex-direction: column; gap: 8px; }
+    .sem-swatch { height: 52px; border-radius: 10px; border: 1px solid var(--bdr); }
+    .sem-name { font-size: 11px; font-weight: 600; color: var(--tx); }
+    .sem-token { font-size: 9px; color: var(--tx3); line-height: 1.4; }
+
+    /* ─── Typography ─── */
+    .font-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 40px; }
+    .font-card {
+      background: var(--surf); border-radius: 16px; padding: 28px;
+      border: 1px solid var(--cr-200);
+    }
+    .font-label {
+      font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tx3); margin-bottom: 18px;
+    }
+    .type-table { background: var(--surf); border-radius: 16px; overflow: hidden; border: 1px solid var(--cr-200); }
+    .type-row-header {
+      padding: 16px 28px; background: var(--cr-50);
+      border-bottom: 1px solid var(--cr-200);
+      font-size: 9px; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--tx3);
+      display: grid; grid-template-columns: 140px 1fr;
+    }
+    .type-row {
+      display: grid; grid-template-columns: 140px 1fr;
+      padding: 20px 28px; border-bottom: 1px solid var(--cr-100);
+      align-items: center; gap: 24px;
+    }
+    .type-row:last-child { border-bottom: none; }
+    .type-meta { font-size: 10px; color: var(--tx3); line-height: 1.5; }
+    .type-meta strong { display: block; font-size: 11px; font-weight: 600; color: var(--tx2); margin-bottom: 2px; }
+
+    /* ─── Spacing ─── */
+    .spacing-table { display: flex; flex-direction: column; gap: 0; }
+    .sp-row {
+      display: flex; align-items: center; gap: 16px;
+      padding: 9px 28px; border-bottom: 1px solid var(--cr-100);
+    }
+    .sp-row:last-child { border-bottom: none; }
+    .sp-label { font-size: 11px; color: var(--tx3); width: 100px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+    .sp-bar { height: 18px; background: linear-gradient(90deg, var(--c-500), var(--em-400)); border-radius: 3px; }
+    .sp-val  { font-size: 11px; color: var(--tx3); margin-left: 4px; }
+
+    /* ─── Effects ─── */
+    .shadow-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 40px; }
+    .shadow-card {
+      background: var(--surf); border-radius: 14px; padding: 28px 20px;
+      text-align: center; transition: transform 0.2s;
+    }
+    .shadow-card:hover { transform: translateY(-3px); }
+    .shadow-name { font-size: 12px; font-weight: 600; color: var(--tx); margin-bottom: 4px; }
+    .shadow-use  { font-size: 10px; color: var(--tx3); }
+
+    .radius-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .radius-demo {
+      background: var(--e-100); aspect-ratio: 1;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; gap: 6px;
+    }
+    .radius-name { font-size: 12px; font-weight: 600; color: var(--tx); }
+    .radius-val  { font-size: 10px; color: var(--tx3); }
+
+    .grad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+    .grad-bar { height: 72px; border-radius: 14px; }
+    .grad-label { font-size: 10px; color: var(--tx3); margin-top: 6px; line-height: 1.4; }
+
+    /* ─── Components ─── */
+    .comp-block { margin-bottom: 56px; }
+    .comp-label { font-size: 13px; font-weight: 600; color: var(--tx2); margin-bottom: 14px; letter-spacing: 0.01em; }
+    .demo-bg {
+      background: var(--cr-50); border: 1px solid var(--bdr);
+      border-radius: 16px; padding: 36px 28px;
+      display: flex; flex-wrap: wrap; gap: 14px; align-items: center;
+    }
+    .demo-bg + .demo-bg { margin-top: 12px; }
+
+    /* Nav bar */
+    .nav-bar {
+      background: var(--surf); border-radius: 14px;
+      padding: 14px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: var(--sh-md);
+    }
+    .nav-brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: var(--fd); font-size: 22px; font-weight: 600;
+      color: var(--e-800); text-decoration: none; letter-spacing: -0.01em;
+    }
+    .nav-ico {
+      width: 30px; height: 30px; background: var(--e-800); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; font-size: 13px;
+    }
+    .nav-links-bar { display: flex; gap: 2px; }
+    .nl {
+      padding: 8px 15px; border-radius: 9999px; font-size: 14px;
+      color: var(--tx2); text-decoration: none; transition: all 0.18s; font-weight: 400;
+    }
+    .nl:hover { background: var(--cr-100); color: var(--e-800); }
+    .nl.active { color: var(--e-800); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+    .nav-actions-bar { display: flex; align-items: center; gap: 8px; }
+    .nav-btn-ico {
+      width: 36px; height: 36px; border: none; background: none; cursor: pointer;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 16px; color: var(--tx2); transition: background 0.18s;
+    }
+    .nav-btn-ico:hover { background: var(--cr-100); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 11px 24px; border-radius: 9999px;
+      font-family: var(--fb); font-size: 14px; font-weight: 500;
+      cursor: pointer; border: none; transition: all 0.2s;
+      text-decoration: none; letter-spacing: 0.01em; line-height: 1;
+    }
+    .btn-primary { background: var(--e-800); color: #fff; }
+    .btn-primary:hover { background: var(--e-700); transform: translateY(-1px); box-shadow: 0 6px 20px rgb(59 26 8/0.25); }
+    .btn-secondary { background: transparent; color: var(--e-800); border: 1.5px solid var(--e-800); }
+    .btn-secondary:hover { background: var(--e-50); transform: translateY(-1px); }
+    .btn-caramel { background: var(--c-500); color: var(--e-900); font-weight: 600; }
+    .btn-caramel:hover { background: var(--c-700); color: #fff; transform: translateY(-1px); box-shadow: 0 6px 20px rgb(212 168 67/0.35); }
+    .btn-ghost { background: transparent; color: var(--e-600); padding: 11px 16px; }
+    .btn-ghost:hover { background: var(--cr-100); color: var(--e-800); }
+    .btn-sm { padding: 7px 18px; font-size: 13px; }
+    .btn-lg { padding: 15px 36px; font-size: 16px; }
+    .btn-disabled { opacity: 0.4; pointer-events: none; }
+
+    /* Arrow CTA button */
+    .btn-arrow {
+      display: inline-flex; align-items: center; gap: 0;
+      padding: 6px 6px 6px 20px; border-radius: 9999px;
+      background: var(--e-800); color: #fff;
+      font-size: 14px; font-weight: 500; cursor: pointer;
+      border: none; transition: all 0.2s; font-family: var(--fb);
+    }
+    .btn-arrow .ac {
+      width: 34px; height: 34px; background: #fff; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--e-800); font-size: 15px; transition: transform 0.25s;
+    }
+    .btn-arrow:hover .ac { transform: rotate(45deg); }
+
+    /* Icon button */
+    .btn-icon {
+      width: 42px; height: 42px; padding: 0; border: none;
+      background: var(--cr-100); border-radius: 50%; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: 17px; color: var(--e-700); transition: all 0.2s;
+    }
+    .btn-icon:hover { background: var(--e-800); color: #fff; transform: rotate(8deg) scale(1.08); }
+
+    /* Badges */
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 4px 11px; border-radius: 9999px;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge-espresso { background: var(--e-800); color: var(--c-300); }
+    .badge-caramel  { background: var(--c-500); color: var(--e-900); }
+    .badge-ember    { background: var(--em-100); color: var(--em-700); }
+    .badge-cream    { background: var(--cr-200); color: var(--e-700); }
+    .badge-burgundy { background: var(--b-700); color: #fff; }
+
+    /* Inputs */
+    .input-wrap { position: relative; display: inline-flex; align-items: center; }
+    .input-ico { position: absolute; left: 14px; color: var(--tx3); font-size: 14px; pointer-events: none; }
+    .input {
+      font-family: var(--fb); font-size: 14px; color: var(--tx);
+      background: var(--surf); border: 1.5px solid var(--bdr);
+      border-radius: 9999px; padding: 10px 18px 10px 40px;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s; width: 220px;
+    }
+    .input::placeholder { color: var(--tx3); }
+    .input:focus { border-color: var(--e-600); box-shadow: 0 0 0 3px rgb(122 74 30/0.12); }
+    .input-plain { padding-left: 18px; }
+
+    /* Product card */
+    .pcard {
+      background: var(--surf); border-radius: 24px; overflow: hidden;
+      box-shadow: var(--sh-md); width: 210px;
+      transition: transform 0.3s, box-shadow 0.3s; cursor: pointer;
+    }
+    .pcard:hover { transform: translateY(-6px); box-shadow: var(--sh-xl); }
+    .pcard-img {
+      height: 172px; background: linear-gradient(135deg, var(--cr-100), var(--e-100));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 56px; position: relative;
+    }
+    .pcard-badge { position: absolute; top: 10px; right: 10px; }
+    .pcard-body { padding: 18px; }
+    .pcard-name { font-family: var(--fd); font-size: 18px; font-weight: 600; color: var(--e-800); margin-bottom: 4px; }
+    .pcard-desc { font-size: 11px; color: var(--tx3); margin-bottom: 14px; line-height: 1.5; }
+    .pcard-foot { display: flex; align-items: center; justify-content: space-between; }
+    .pcard-price { font-family: var(--fd); font-size: 20px; font-weight: 700; color: var(--e-800); }
+    .pcard-add {
+      width: 34px; height: 34px; background: var(--e-800); color: #fff;
+      border: none; border-radius: 50%; cursor: pointer; font-size: 20px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .pcard-add:hover { background: var(--e-700); transform: scale(1.1); }
+
+    /* Stats */
+    .stat-row { display: flex; gap: 40px; }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num {
+      font-family: var(--fd); font-size: 44px; font-weight: 700;
+      color: var(--e-800); line-height: 1; letter-spacing: -0.02em;
+    }
+    .stat-lbl { font-size: 12px; color: var(--tx3); letter-spacing: 0.04em; }
+
+    /* Price badge */
+    .price-badge {
+      display: inline-flex; flex-direction: column; align-items: center;
+      justify-content: center; width: 88px; height: 88px; border-radius: 50%;
+      background: var(--c-500); color: var(--e-900);
+    }
+    .price-badge-from { font-size: 9px; font-weight: 600; letter-spacing: 0.06em; }
+    .price-badge-amt  { font-family: var(--fd); font-size: 22px; font-weight: 700; line-height: 1; }
+
+    /* ─── Motion ─── */
+    .motion-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .motion-card {
+      background: var(--surf); border: 1px solid var(--bdr);
+      border-radius: 14px; padding: 24px; text-align: center;
+    }
+    .motion-box { width: 44px; height: 44px; border-radius: 10px; margin: 16px auto; }
+    .motion-name { font-size: 11px; font-weight: 600; color: var(--tx); margin-bottom: 4px; }
+    .motion-code { font-size: 9px; color: var(--tx3); font-family: monospace; line-height: 1.5; }
+
+    @keyframes slide { 0%,100%{ transform:translateX(-18px);opacity:.25 } 50%{ transform:translateX(18px);opacity:1 } }
+    @keyframes pop   { 0%,100%{ transform:scale(.7);opacity:.25 } 50%{ transform:scale(1.15);opacity:1 } }
+    @keyframes fade  { 0%,100%{ opacity:0;transform:translateY(6px) } 40%,60%{ opacity:1;transform:translateY(0) } }
+    .anim-slide { animation: slide 2.4s cubic-bezier(0.4,0,0.2,1) infinite; }
+    .anim-pop   { animation: pop   2.4s cubic-bezier(0.34,1.56,0.64,1) infinite; }
+    .anim-fade  { animation: fade  2.4s ease-in-out infinite; }
+
+    .dur-scale { display: flex; flex-direction: column; gap: 10px; padding: 0 4px; }
+    .dur-row { display: flex; align-items: center; gap: 14px; }
+    .dur-label { font-size: 10px; color: var(--tx3); width: 110px; flex-shrink: 0; }
+    .dur-bar { height: 4px; border-radius: 2px; background: var(--e-800); }
+
+    /* ─── Toast ─── */
+    .toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: var(--e-800); color: var(--c-300);
+      padding: 11px 20px; border-radius: 9999px; font-size: 13px; font-weight: 500;
+      opacity: 0; transform: translateY(6px); transition: all 0.22s;
+      pointer-events: none; z-index: 9999;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+
+    /* ─── Scrollbar ─── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--e-200); border-radius: 3px; }
+    .nav::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); }
+  </style>
+</head>
+<body>
+<div class="shell">
+
+  <!-- ═══════════════════════════════════
+       SIDEBAR NAVIGATION
+  ════════════════════════════════════ -->
+  <nav class="nav">
+    <div class="nav-logo">☕ Brew</div>
+    <div class="nav-sub">Design System v1.0</div>
+
+    <a href="#brand"      class="nav-link active"><span class="nav-dot" style="background:#3B1A08"></span> Brand</a>
+    <a href="#colors"     class="nav-link"><span class="nav-dot" style="background:#D4A843"></span> Colors</a>
+    <a href="#typography" class="nav-link"><span class="nav-dot" style="background:#D94A0A"></span> Typography</a>
+    <a href="#spacing"    class="nav-link"><span class="nav-dot" style="background:#A06632"></span> Spacing</a>
+    <a href="#effects"    class="nav-link"><span class="nav-dot" style="background:#6B1E26"></span> Effects</a>
+    <a href="#components" class="nav-link"><span class="nav-dot" style="background:#5C2D0E"></span> Components</a>
+    <a href="#motion"     class="nav-link"><span class="nav-dot" style="background:#C4894F"></span> Motion</a>
+
+    <div class="nav-stack">
+      <span>Next.js 16.2.4</span>
+      <span>React 19.2.4</span>
+      <span>Tailwind CSS v4</span>
+      <span>TypeScript 5</span>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════ -->
+  <main class="main">
+
+    <!-- ── HERO ── -->
+    <div id="brand" class="hero">
+      <div>
+        <div class="eyebrow" style="margin-bottom:14px">Design System · April 2026</div>
+        <div class="hero-title">Brew<br><em>Coffee</em></div>
+        <p class="hero-desc" style="margin-top:14px">A complete visual language for the Brew Coffee brand — every color, type scale, spacing unit, and component built for Next.js 16, React 19, and Tailwind CSS v4.</p>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-badge">v 1.0.0</span>
+        <span class="hero-date">Reference: coffee.png · C minor brand</span>
+        <div class="hero-palette">
+          <div class="hero-swatch"><span>Espresso</span><div class="hero-swatch-dot" style="background:#3B1A08"></div></div>
+          <div class="hero-swatch"><span>Caramel</span><div class="hero-swatch-dot" style="background:#D4A843"></div></div>
+          <div class="hero-swatch"><span>Ember</span><div class="hero-swatch-dot" style="background:#D94A0A"></div></div>
+          <div class="hero-swatch"><span>Cream</span><div class="hero-swatch-dot" style="background:#FAF7F2;border:1px solid #EDD4B2"></div></div>
+          <div class="hero-swatch"><span>Burgundy</span><div class="hero-swatch-dot" style="background:#6B1E26"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════
+         02 COLORS
+    ════════════════════════ -->
+    <section id="colors">
+      <div class="eyebrow">02 Colors</div>
+      <h2 class="section-h">Color System</h2>
+      <p class="section-desc">Extracted from the warmth of coffee — rich espresso browns, golden caramel, glowing ember orange, and soft cream backgrounds. Click any swatch to copy its hex value.</p>
+
+      <!-- Espresso -->
+      <div class="color-family">
+        <div class="color-family-label">Espresso — Primary Brand Brown · bg-espresso-{shade}</div>
+        <div class="swatch-strip">
+          <div class="sw" onclick="copy('#120701','Espresso 950')"><div class="sw-color" style="background:#120701"></div><div class="sw-info"><span class="sw-name">950</span><span class="sw-hex">#120701</span></div></div>
+          <div class="sw" onclick="copy('#1E0C03','Espresso 900')"><div class="sw-color" style="background:#1E0C03"></div><div class="sw-info"><span class="sw-name">900</span><span class="sw-hex">#1E0C03</span></div></div>
+          <div class="sw" onclick="copy('#3B1A08','Espresso 800 ★')"><div class="sw-color" style="background:#3B1A08"></div><div class="sw-info" style="background:#f7ead8"><span class="sw-name">800 <span class="sw-star">★</span></span><span class="sw-hex">#3B1A08</span></div></div>
+          <div class="sw" onclick="copy('#5C2D0E','Espresso 700')"><div class="sw-color" style="background:#5C2D0E"></div><div class="sw-info"><span class="sw-name">700</span><span class="sw-hex">#5C2D0E</span></div></div>
+          <div class="sw" onclick="copy('#7B4A1E','Espresso 600')"><div class="sw-color" style="background:#7B4A1E"></div><div class="sw-info"><span class="sw-name">600</span><span class="sw-hex">#7B4A1E</span></div></div>
+          <div class="sw" onclick="copy('#A06632','Espresso 500')"><div class="sw-color" style="background:#A06632"></div><div class="sw-info"><span class="sw-name">500</span><span class="sw-hex">#A06632</span></div></div>
+          <div class="sw" onclick="copy('#C4894F','Espresso 400')"><div class="sw-color" style="background:#C4894F"></div><div class="sw-info"><span class="sw-name">400</span><span class="sw-hex">#C4894F</span></div></div>
+          <div class="sw" onclick="copy('#D9AB7A','Espresso 300')"><div class="sw-color" style="background:#D9AB7A"></div><div class="sw-info"><span class="sw-name">300</span><span class="sw-hex">#D9AB7A</span></div></div>
+          <div class="sw" onclick="copy('#EDD4B2','Espresso 200')"><div class="sw-color" style="background:#EDD4B2"></div><div class="sw-info"><span class="sw-name">200 <span class="sw-star">★</span></span><span class="sw-hex">#EDD4B2</span></div></div>
+          <div class="sw" onclick="copy('#F7EAD8','Espresso 100')"><div class="sw-color" style="background:#F7EAD8;border-top:1px solid #EDD4B2"></div><div class="sw-info"><span class="sw-name">100</span><span class="sw-hex">#F7EAD8</span></div></div>
+          <div class="sw" onclick="copy('#FBF5EE','Espresso 50')"><div class="sw-color" style="background:#FBF5EE;border-top:1px solid #EDD4B2"></div><div class="sw-info"><span class="sw-name">50</span><span class="sw-hex">#FBF5EE</span></div></div>
+        </div>
+      </div>
+
+      <!-- Caramel -->
+      <div class="color-family">
+        <div class="color-family-label">Caramel — Gold Accent · bg-caramel-{shade}</div>
+        <div class="swatch-strip" style="gap:6px">
+          <div class="sw" onclick="copy('#6B3A05','Caramel 900')"><div class="sw-color" style="background:#6B3A05;border-radius:12px 0 0 12px"></div><div class="sw-info"><span class="sw-name">900</span><span class="sw-hex">#6B3A05</span></div></div>
+          <div class="sw" onclick="copy('#A8691A','Caramel 700')"><div class="sw-color" style="background:#A8691A"></div><div class="sw-info"><span class="sw-name">700</span><span class="sw-hex">#A8691A</span></div></div>
+          <div class="sw" onclick="copy('#D4A843','Caramel 500 ★')"><div class="sw-color" style="background:#D4A843"></div><div class="sw-info"><span class="sw-name">500 <span class="sw-star">★</span></span><span class="sw-hex">#D4A843</span></div></div>
+          <div class="sw" onclick="copy('#E8CC8A','Caramel 300')"><div class="sw-color" style="background:#E8CC8A"></div><div class="sw-info"><span class="sw-name">300</span><span class="sw-hex">#E8CC8A</span></div></div>
+          <div class="sw" onclick="copy('#F9F1E2','Caramel 100')"><div class="sw-color" style="background:#F9F1E2;border:1px solid #EDD4B2;border-radius:0 12px 12px 0"></div><div class="sw-info"><span class="sw-name">100</span><span class="sw-hex">#F9F1E2</span></div></div>
+        </div>
+      </div>
+
+      <!-- Ember + Cream + Burgundy -->
+      <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:20px;margin-bottom:36px">
+        <div class="color-family" style="margin:0">
+          <div class="color-family-label">Ember · bg-ember-{shade}</div>
+          <div class="swatch-strip" style="gap:4px">
+            <div class="sw" onclick="copy('#B03000','Ember 700')"><div class="sw-color" style="background:#B03000;border-radius:10px 0 0 10px"></div><div class="sw-info"><span class="sw-name">700</span><span class="sw-hex">#B03000</span></div></div>
+            <div class="sw" onclick="copy('#D94A0A','Ember 500 ★')"><div class="sw-color" style="background:#D94A0A"></div><div class="sw-info"><span class="sw-name">500 <span class="sw-star">★</span></span><span class="sw-hex">#D94A0A</span></div></div>
+            <div class="sw" onclick="copy('#E86030','Ember 400')"><div class="sw-color" style="background:#E86030"></div><div class="sw-info"><span class="sw-name">400</span><span class="sw-hex">#E86030</span></div></div>
+            <div class="sw" onclick="copy('#F08A60','Ember 300')"><div class="sw-color" style="background:#F08A60"></div><div class="sw-info"><span class="sw-name">300</span><span class="sw-hex">#F08A60</span></div></div>
+            <div class="sw" onclick="copy('#FCEEE6','Ember 100')"><div class="sw-color" style="background:#FCEEE6;border:1px solid #F08A60;border-radius:0 10px 10px 0"></div><div class="sw-info"><span class="sw-name">100</span><span class="sw-hex">#FCEEE6</span></div></div>
+          </div>
+        </div>
+        <div class="color-family" style="margin:0">
+          <div class="color-family-label">Cream · bg-cream-{shade}</div>
+          <div class="swatch-strip" style="gap:4px">
+            <div class="sw" onclick="copy('#FAF7F2','Cream 50')"><div class="sw-color" style="background:#FAF7F2;border:1px solid #EDD4B2;border-radius:10px 0 0 10px"></div><div class="sw-info"><span class="sw-name">50 <span class="sw-star">★</span></span><span class="sw-hex">#FAF7F2</span></div></div>
+            <div class="sw" onclick="copy('#F5EFE6','Cream 100')"><div class="sw-color" style="background:#F5EFE6;border:1px solid #EDD4B2"></div><div class="sw-info"><span class="sw-name">100</span><span class="sw-hex">#F5EFE6</span></div></div>
+            <div class="sw" onclick="copy('#EDE0CF','Cream 200')"><div class="sw-color" style="background:#EDE0CF"></div><div class="sw-info"><span class="sw-name">200</span><span class="sw-hex">#EDE0CF</span></div></div>
+            <div class="sw" onclick="copy('#E0CCB4','Cream 300')"><div class="sw-color" style="background:#E0CCB4;border-radius:0 10px 10px 0"></div><div class="sw-info"><span class="sw-name">300</span><span class="sw-hex">#E0CCB4</span></div></div>
+          </div>
+        </div>
+        <div class="color-family" style="margin:0">
+          <div class="color-family-label">Burgundy · bg-burgundy-{shade}</div>
+          <div class="swatch-strip" style="gap:4px">
+            <div class="sw" onclick="copy('#3D0E14','Burgundy 900')"><div class="sw-color" style="background:#3D0E14;border-radius:10px 0 0 10px"></div><div class="sw-info"><span class="sw-name">900</span><span class="sw-hex">#3D0E14</span></div></div>
+            <div class="sw" onclick="copy('#6B1E26','Burgundy 700 ★')"><div class="sw-color" style="background:#6B1E26"></div><div class="sw-info"><span class="sw-name">700 <span class="sw-star">★</span></span><span class="sw-hex">#6B1E26</span></div></div>
+            <div class="sw" onclick="copy('#8B3040','Burgundy 500')"><div class="sw-color" style="background:#8B3040"></div><div class="sw-info"><span class="sw-name">500</span><span class="sw-hex">#8B3040</span></div></div>
+            <div class="sw" onclick="copy('#C47080','Burgundy 300')"><div class="sw-color" style="background:#C47080;border-radius:0 10px 10px 0"></div><div class="sw-info"><span class="sw-name">300</span><span class="sw-hex">#C47080</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Semantic -->
+      <div class="card">
+        <div class="color-family-label" style="margin-bottom:20px">Semantic Assignments — what each color is for</div>
+        <div class="semantic-grid">
+          <div class="sem-item">
+            <div class="sem-swatch" style="background:var(--cr-50)"></div>
+            <div class="sem-name">Background</div>
+            <div class="sem-token">--color-background<br>bg-background<br>Page backgrounds</div>
+          </div>
+          <div class="sem-item">
+            <div class="sem-swatch" style="background:#fff"></div>
+            <div class="sem-name">Surface</div>
+            <div class="sem-token">--color-surface<br>bg-surface<br>Cards, modals, sheets</div>
+          </div>
+          <div class="sem-item">
+            <div class="sem-swatch" style="background:#3B1A08;border-color:#3B1A08"></div>
+            <div class="sem-name">Primary</div>
+            <div class="sem-token">espresso-800<br>Headings, primary buttons</div>
+          </div>
+          <div class="sem-item">
+            <div class="sem-swatch" style="background:#D4A843;border-color:#D4A843"></div>
+            <div class="sem-name">Accent</div>
+            <div class="sem-token">caramel-500<br>Badges, price, highlights</div>
+          </div>
+          <div class="sem-item">
+            <div class="sem-swatch" style="background:#D94A0A;border-color:#D94A0A"></div>
+            <div class="sem-name">Signal</div>
+            <div class="sem-token">ember-500<br>Section labels, rings</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════
+         03 TYPOGRAPHY
+    ════════════════════════ -->
+    <section id="typography">
+      <div class="eyebrow">03 Typography</div>
+      <h2 class="section-h">Typography</h2>
+      <p class="section-desc">Cormorant Garamond brings editorial warmth to display text. DM Sans provides clarity and legibility for every body context. Import both via Google Fonts.</p>
+
+      <div class="font-pair">
+        <div class="font-card">
+          <div class="font-label">Display — Cormorant Garamond · font-display</div>
+          <div style="font-family:var(--fd);font-size:56px;font-weight:600;line-height:1;color:var(--e-800);letter-spacing:-0.02em;margin-bottom:12px">
+            Enjoy<br><em style="font-weight:400;color:var(--c-500)">Coffee</em>
+          </div>
+          <div style="font-size:11px;color:var(--tx3)">
+            Weights: 400 · 500 · 600 · 700<br>
+            Styles: Regular · Italic<br>
+            Use: Headings, hero text, prices
+          </div>
+        </div>
+        <div class="font-card">
+          <div class="font-label">Body — DM Sans · font-body</div>
+          <div style="margin-bottom:16px">
+            <div style="font-size:17px;font-weight:500;color:var(--e-800);margin-bottom:8px;line-height:1.3">The perfect cup starts here.</div>
+            <div style="font-size:14px;color:var(--tx2);line-height:1.7">Boost your productivity and build your mood with 100% natural coffee, sourced fresh from highland gardens every morning.</div>
+          </div>
+          <div style="font-size:11px;color:var(--tx3)">
+            Weights: 300 · 400 · 500 · 600<br>
+            Optical size: 9–40<br>
+            Use: Body, UI, captions, labels
+          </div>
+        </div>
+      </div>
+
+      <div class="type-table">
+        <div class="type-row-header"><span>Token · Size</span><span>Sample</span></div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-7xl · 4.5rem</strong>display · 72px</div>
+          <div style="font-family:var(--fd);font-size:64px;font-weight:600;line-height:1;color:var(--e-800);letter-spacing:-0.03em">Aa</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-6xl · 3.75rem</strong>hero heading · 60px</div>
+          <div style="font-family:var(--fd);font-size:48px;font-weight:600;line-height:1.05;color:var(--e-800);letter-spacing:-0.02em">Enjoy Your Morning Coffee</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-4xl · 2.25rem</strong>h1 · 36px</div>
+          <div style="font-family:var(--fd);font-size:36px;font-weight:600;line-height:1.15;color:var(--e-800)">Our Bestselling Blends</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-2xl · 1.5rem</strong>h2 · 24px</div>
+          <div style="font-family:var(--fd);font-size:24px;font-weight:600;color:var(--e-800)">Featured Products</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-xl · 1.25rem</strong>h3 · 20px</div>
+          <div style="font-size:20px;font-weight:500;color:var(--e-800)">Artisan Espresso Blend</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-lg · 1.125rem</strong>lead · 18px</div>
+          <div style="font-size:18px;font-weight:400;color:var(--tx2);line-height:1.6">Boost your productivity and build your mood with a glass of coffee in the morning.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-base · 1rem</strong>body · 16px</div>
+          <div style="font-size:15px;color:var(--tx2);line-height:1.7">Our beans are sourced from the finest highland farms, roasted to perfection for a rich and complex flavor profile you'll want every morning.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-meta"><strong>text-sm · 0.875rem</strong>caption · 14px</div>
+          <div style="font-size:13px;color:var(--tx3)">100% Arabica · Single Origin · Freshly Roasted Daily</div>
+        </div>
+        <div class="type-row" style="border:none">
+          <div class="type-meta"><strong>text-xs · 0.75rem</strong>label · 12px</div>
+          <div style="font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;color:var(--tx3)">Best Seller · Limited Edition</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════
+         04 SPACING
+    ════════════════════════ -->
+    <section id="spacing">
+      <div class="eyebrow">04 Spacing</div>
+      <h2 class="section-h">Spacing</h2>
+      <p class="section-desc">4px base unit. All padding, margin, and gap values come from this scale — Tailwind v4 generates utilities (p-4 = 1rem, gap-6 = 1.5rem, etc.).</p>
+
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="spacing-table">
+          <div class="sp-row" style="background:var(--cr-50);border-bottom:1px solid var(--cr-200);padding:12px 28px">
+            <span class="sp-label" style="font-weight:600;color:var(--tx2)">Token · px</span>
+            <span style="font-size:11px;font-weight:600;color:var(--tx2)">Visual</span>
+            <span class="sp-val" style="font-weight:600;color:var(--tx2)">rem</span>
+          </div>
+          <div class="sp-row"><span class="sp-label">spacing-1 · 4px</span><div class="sp-bar" style="width:4px"></div><span class="sp-val">0.25rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-2 · 8px</span><div class="sp-bar" style="width:8px"></div><span class="sp-val">0.5rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-3 · 12px</span><div class="sp-bar" style="width:12px"></div><span class="sp-val">0.75rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-4 · 16px</span><div class="sp-bar" style="width:16px"></div><span class="sp-val">1rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-5 · 20px</span><div class="sp-bar" style="width:20px"></div><span class="sp-val">1.25rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-6 · 24px</span><div class="sp-bar" style="width:24px"></div><span class="sp-val">1.5rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-8 · 32px</span><div class="sp-bar" style="width:32px"></div><span class="sp-val">2rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-10 · 40px</span><div class="sp-bar" style="width:40px"></div><span class="sp-val">2.5rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-12 · 48px</span><div class="sp-bar" style="width:48px"></div><span class="sp-val">3rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-16 · 64px</span><div class="sp-bar" style="width:64px"></div><span class="sp-val">4rem</span></div>
+          <div class="sp-row"><span class="sp-label">spacing-20 · 80px</span><div class="sp-bar" style="width:80px"></div><span class="sp-val">5rem</span></div>
+          <div class="sp-row" style="border:none"><span class="sp-label">spacing-24 · 96px</span><div class="sp-bar" style="width:96px"></div><span class="sp-val">6rem</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════
+         05 EFFECTS
+    ════════════════════════ -->
+    <section id="effects">
+      <div class="eyebrow">05 Effects</div>
+      <h2 class="section-h">Effects</h2>
+      <p class="section-desc">Shadows tinted with espresso brown (#3B1A08) instead of cold black. Every surface has depth without feeling harsh.</p>
+
+      <!-- Shadows -->
+      <div style="font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase">Shadows</div>
+      <div class="shadow-grid" style="margin-bottom:48px">
+        <div class="shadow-card" style="box-shadow:0 1px 3px rgb(59 26 8/0.10)">
+          <div class="shadow-name">shadow-sm</div>
+          <div class="shadow-use">Cards, passive elements</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 4px 12px rgb(59 26 8/0.12)">
+          <div class="shadow-name">shadow-md</div>
+          <div class="shadow-use">Nav bar, dropdown menus</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 10px 28px rgb(59 26 8/0.16)">
+          <div class="shadow-name">shadow-lg</div>
+          <div class="shadow-use">Floating panels, drawers</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 20px 48px rgb(59 26 8/0.22)">
+          <div class="shadow-name">shadow-xl</div>
+          <div class="shadow-use">Modals, product spotlight</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:inset 0 2px 6px rgb(59 26 8/0.10)">
+          <div class="shadow-name">shadow-inner</div>
+          <div class="shadow-use">Inputs, pressed states</div>
+        </div>
+        <div class="shadow-card" style="box-shadow:0 0 20px 4px rgb(212 168 67/0.25)">
+          <div class="shadow-name">shadow-glow</div>
+          <div class="shadow-use">Caramel glow, featured items</div>
+        </div>
+      </div>
+
+      <!-- Border Radius -->
+      <div style="font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase">Border Radius</div>
+      <div class="radius-grid" style="margin-bottom:48px">
+        <div class="radius-demo" style="border-radius:2px"><span class="radius-name">xs</span><span class="radius-val">2px — micro</span></div>
+        <div class="radius-demo" style="border-radius:4px"><span class="radius-name">sm</span><span class="radius-val">4px — subtle</span></div>
+        <div class="radius-demo" style="border-radius:8px"><span class="radius-name">md</span><span class="radius-val">8px — inputs</span></div>
+        <div class="radius-demo" style="border-radius:12px"><span class="radius-name">lg</span><span class="radius-val">12px — cards</span></div>
+        <div class="radius-demo" style="border-radius:16px"><span class="radius-name">xl</span><span class="radius-val">16px — panels</span></div>
+        <div class="radius-demo" style="border-radius:24px"><span class="radius-name">2xl</span><span class="radius-val">24px — product card</span></div>
+        <div class="radius-demo" style="border-radius:32px"><span class="radius-name">3xl</span><span class="radius-val">32px — modals</span></div>
+        <div class="radius-demo" style="border-radius:9999px"><span class="radius-name">full</span><span class="radius-val">pill — buttons, badges</span></div>
+      </div>
+
+      <!-- Gradients -->
+      <div style="font-size:12px;font-weight:600;color:var(--tx2);margin-bottom:16px;letter-spacing:0.04em;text-transform:uppercase">Gradients</div>
+      <div class="grad-grid">
+        <div>
+          <div class="grad-bar" style="background:linear-gradient(135deg,#3B1A08,#7B4A1E)"></div>
+          <div class="grad-label">Espresso Dark<br><code>from-espresso-800 to-espresso-600</code></div>
+        </div>
+        <div>
+          <div class="grad-bar" style="background:linear-gradient(135deg,#A8691A,#D4A843)"></div>
+          <div class="grad-label">Caramel Gold<br><code>from-caramel-700 to-caramel-500</code></div>
+        </div>
+        <div>
+          <div class="grad-bar" style="background:linear-gradient(135deg,#FAF7F2,#EDE0CF)"></div>
+          <div class="grad-label">Cream Soft<br><code>from-cream-50 to-cream-200</code></div>
+        </div>
+        <div>
+          <div class="grad-bar" style="background:linear-gradient(135deg,#D94A0A,#D4A843)"></div>
+          <div class="grad-label">Ember to Caramel<br><code>from-ember-500 to-caramel-500</code></div>
+        </div>
+        <div>
+          <div class="grad-bar" style="background:linear-gradient(135deg,#6B1E26,#3B1A08)"></div>
+          <div class="grad-label">Deep Brand<br><code>from-burgundy-700 to-espresso-800</code></div>
+        </div>
+        <div>
+          <div class="grad-bar" style="background:radial-gradient(circle at 30% 40%, #D4A843 0%,#3B1A08 70%)"></div>
+          <div class="grad-label">Radial Spotlight<br><code>from-caramel-500 to-espresso-800</code></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════
+         06 COMPONENTS
+    ════════════════════════ -->
+    <section id="components">
+      <div class="eyebrow">06 Components</div>
+      <h2 class="section-h">Components</h2>
+      <p class="section-desc">Every component is built with Tailwind v4 utility classes. Reference component-specs.md for full TypeScript interfaces and usage examples.</p>
+
+      <!-- Navigation -->
+      <div class="comp-block">
+        <div class="comp-label">Navigation Bar — &lt;NavBar /&gt;</div>
+        <div class="nav-bar">
+          <a class="nav-brand" href="#">
+            <div class="nav-ico">☕</div> Brew
+          </a>
+          <div class="nav-links-bar">
+            <a href="#" class="nl active">Home</a>
+            <a href="#" class="nl">Products</a>
+            <a href="#" class="nl">Facility</a>
+            <a href="#" class="nl">Reviews</a>
+          </div>
+          <div class="nav-actions-bar">
+            <button class="nav-btn-ico">🔍</button>
+            <button class="nav-btn-ico">🛒</button>
+            <button class="btn btn-primary btn-sm">Sign In</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="comp-block">
+        <div class="comp-label">Buttons — &lt;Button variant="..." size="..." /&gt;</div>
+        <div class="demo-bg">
+          <button class="btn btn-primary">Order Now</button>
+          <button class="btn btn-secondary">Learn More</button>
+          <button class="btn btn-caramel">Best Seller</button>
+          <button class="btn btn-ghost">View All →</button>
+          <button class="btn-arrow">Order Now <div class="ac">↗</div></button>
+          <button class="btn-icon">☕</button>
+          <button class="btn-icon">🛒</button>
+        </div>
+        <div class="demo-bg">
+          <button class="btn btn-primary btn-sm">Small</button>
+          <button class="btn btn-primary">Default</button>
+          <button class="btn btn-primary btn-lg">Large</button>
+          <button class="btn btn-primary btn-disabled">Disabled</button>
+        </div>
+      </div>
+
+      <!-- Badges -->
+      <div class="comp-block">
+        <div class="comp-label">Badges — &lt;Badge variant="..." /&gt;</div>
+        <div class="demo-bg">
+          <span class="badge badge-espresso">Best Seller</span>
+          <span class="badge badge-caramel">⭐ Featured</span>
+          <span class="badge badge-ember">🔥 Hot Pick</span>
+          <span class="badge badge-cream">New Arrival</span>
+          <span class="badge badge-burgundy">Limited Edition</span>
+        </div>
+      </div>
+
+      <!-- Inputs -->
+      <div class="comp-block">
+        <div class="comp-label">Inputs — &lt;Input type="..." placeholder="..." /&gt;</div>
+        <div class="demo-bg">
+          <div class="input-wrap">
+            <span class="input-ico">🔍</span>
+            <input class="input" type="text" placeholder="Search coffees...">
+          </div>
+          <input class="input input-plain" type="email" placeholder="your@email.com">
+        </div>
+      </div>
+
+      <!-- Product Cards -->
+      <div class="comp-block">
+        <div class="comp-label">Product Card — &lt;ProductCard /&gt;</div>
+        <div class="demo-bg" style="align-items:flex-start;gap:20px;padding:40px 28px">
+          <div class="pcard">
+            <div class="pcard-img">
+              ☕
+              <div class="pcard-badge"><span class="badge badge-espresso">Best Seller</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-name">Espresso Blend</div>
+              <div class="pcard-desc">Rich, bold, and perfectly balanced single-origin.</div>
+              <div class="pcard-foot"><span class="pcard-price">$7.99</span><button class="pcard-add">+</button></div>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-img" style="background:linear-gradient(135deg,var(--c-100),var(--c-300))">
+              🍵
+              <div class="pcard-badge"><span class="badge badge-ember">🔥 Hot</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-name">Caramel Latte</div>
+              <div class="pcard-desc">Sweet caramel swirls with steamed whole milk.</div>
+              <div class="pcard-foot"><span class="pcard-price">$9.49</span><button class="pcard-add">+</button></div>
+            </div>
+          </div>
+          <div class="pcard">
+            <div class="pcard-img" style="background:linear-gradient(135deg,var(--b-900),var(--b-500))">
+              🫖
+              <div class="pcard-badge"><span class="badge badge-cream">New</span></div>
+            </div>
+            <div class="pcard-body">
+              <div class="pcard-name">Dark Roast</div>
+              <div class="pcard-desc">Intense, smoky notes with a velvety finish.</div>
+              <div class="pcard-foot"><span class="pcard-price">$8.99</span><button class="pcard-add">+</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats + Price -->
+      <div class="comp-block">
+        <div class="comp-label">Stat Counters + Price Display</div>
+        <div class="demo-bg" style="justify-content:space-between">
+          <div class="stat-row">
+            <div class="stat-item"><span class="stat-num">1K+</span><span class="stat-lbl">Reviews</span></div>
+            <div class="stat-item"><span class="stat-num">3K+</span><span class="stat-lbl">Best Sell</span></div>
+            <div class="stat-item"><span class="stat-num">150+</span><span class="stat-lbl">Menu</span></div>
+          </div>
+          <div style="display:flex;gap:20px;align-items:center">
+            <div style="display:flex;flex-direction:column;gap:2px">
+              <span style="font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--tx3);font-weight:500">Start At</span>
+              <span style="font-family:var(--fd);font-size:36px;font-weight:700;color:var(--e-800);line-height:1;letter-spacing:-0.02em">$7.99</span>
+            </div>
+            <div class="price-badge">
+              <span class="price-badge-from">Start At</span>
+              <span class="price-badge-amt">$7.99</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════
+         07 MOTION
+    ════════════════════════ -->
+    <section id="motion">
+      <div class="eyebrow">07 Motion</div>
+      <h2 class="section-h">Motion</h2>
+      <p class="section-desc">Warm, intentional animation. Spring easing for tactile interactions, smooth ease for state transitions. Nothing hurried, nothing sluggish.</p>
+
+      <div class="motion-grid" style="margin-bottom:32px">
+        <div class="motion-card">
+          <div class="motion-name">ease-smooth</div>
+          <div class="motion-box anim-slide" style="background:var(--e-800)"></div>
+          <div class="motion-code">cubic-bezier(0.4, 0, 0.2, 1)<br>250ms · State changes, nav</div>
+        </div>
+        <div class="motion-card">
+          <div class="motion-name">ease-spring</div>
+          <div class="motion-box anim-pop" style="background:var(--c-500);border-radius:50%"></div>
+          <div class="motion-code">cubic-bezier(0.34, 1.56, 0.64, 1)<br>300ms · Button press, card hover</div>
+        </div>
+        <div class="motion-card">
+          <div class="motion-name">ease-out</div>
+          <div class="motion-box anim-fade" style="background:var(--em-500)"></div>
+          <div class="motion-code">cubic-bezier(0, 0, 0.2, 1)<br>400ms · Modal open, page enter</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--tx3);margin-bottom:20px">Duration Scale</div>
+        <div class="dur-scale">
+          <div class="dur-row">
+            <span class="dur-label">instant · 75ms</span>
+            <div class="dur-bar" style="width:75px;background:var(--e-800)"></div>
+            <span style="font-size:11px;color:var(--tx3)">Tooltips, immediate feedback</span>
+          </div>
+          <div class="dur-row">
+            <span class="dur-label">fast · 150ms</span>
+            <div class="dur-bar" style="width:150px;background:var(--e-600)"></div>
+            <span style="font-size:11px;color:var(--tx3)">Hover, badge, micro-interactions</span>
+          </div>
+          <div class="dur-row">
+            <span class="dur-label">base · 250ms</span>
+            <div class="dur-bar" style="width:250px;background:var(--c-500)"></div>
+            <span style="font-size:11px;color:var(--tx3)">Default transitions, button clicks</span>
+          </div>
+          <div class="dur-row">
+            <span class="dur-label">slow · 400ms</span>
+            <div class="dur-bar" style="width:400px;background:var(--em-400)"></div>
+            <span style="font-size:11px;color:var(--tx3)">Modal open, drawer slide, page enter</span>
+          </div>
+          <div class="dur-row">
+            <span class="dur-label">slower · 600ms</span>
+            <div class="dur-bar" style="width:540px;background:var(--e-300)"></div>
+            <span style="font-size:11px;color:var(--tx3)">Hero reveal, staggered list entrance</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Copy toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  function copy(hex, name) {
+    navigator.clipboard.writeText(hex).then(() => {
+      const t = document.getElementById('toast');
+      t.textContent = `Copied ${name} — ${hex}`;
+      t.classList.add('show');
+      clearTimeout(t._timer);
+      t._timer = setTimeout(() => t.classList.remove('show'), 2200);
+    });
+  }
+
+  // Scroll spy
+  const allLinks = document.querySelectorAll('.nav-link');
+  const ids = ['brand','colors','typography','spacing','effects','components','motion'];
+  const elems = ids.map(id => document.getElementById(id)).filter(Boolean);
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        allLinks.forEach(l => l.classList.remove('active'));
+        const lnk = document.querySelector(`.nav-link[href="#${e.target.id}"]`);
+        if (lnk) lnk.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  elems.forEach(el => io.observe(el));
+</script>
+</body>
+</html>
