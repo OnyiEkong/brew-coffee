@@ -32,3 +32,40 @@ body {
   color: var(--color-espresso-900);
   font-family: var(--font-body), system-ui, sans-serif;
 }
+
+/* ── n8n Chat widget — Brew & Co theme ─────────────────────────────────── */
+:root {
+  --chat--color-primary:             #c07840;
+  --chat--color-primary-shade-50:    #a0622e;
+  --chat--color-primary-shade-100:   #7a4a2e;
+  --chat--color-secondary:           #2c1a10;
+  --chat--color-secondary-shade-50:  #1a0f0a;
+  --chat--color-white:               #fdf8f3;
+  --chat--color-light:               #f7ede0;
+  --chat--color-light-shade-50:      #f0e4d8;
+  --chat--color-light-shade-100:     #eedcc8;
+  --chat--color-medium:              #9c8c80;
+  --chat--color-dark:                #2c1a10;
+  --chat--color-disabled:            #d6cec8;
+  --chat--color-typing:              #6b5e52;
+
+  --chat--header--background:        #2c1a10;
+  --chat--header--color:             #fdf8f3;
+
+  --chat--message--bot--background:  #f7ede0;
+  --chat--message--bot--color:       #2c1a10;
+  --chat--message--user--background: #c07840;
+  --chat--message--user--color:      #fdf8f3;
+
+  --chat--toggle--background:        #c07840;
+  --chat--toggle--hover--background: #a0622e;
+  --chat--toggle--active--background:#7a4a2e;
+  --chat--toggle--color:             #fdf8f3;
+  --chat--toggle--size:              56px;
+
+  --chat--window--width:             380px;
+  --chat--window--height:            580px;
+
+  --chat--border-radius:             12px;
+  --chat--input--border-active:      #c07840;
+}
